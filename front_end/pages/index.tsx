@@ -1,11 +1,11 @@
 import { ILayout, INews, IPage, ISiteSettings } from "../types";
 
-import Head from "next/head";
-import LayoutContext from "../context/Context";
-import NewsCard from "../components/NewsCard";
-import { NextPage } from "next";
 import axios from "axios";
-import { useContext, useRef } from "react";
+import { NextPage } from "next";
+import Head from "next/head";
+import { useContext } from "react";
+import NewsCard from "../components/NewsCard";
+import LayoutContext from "../context/Context";
 
 export const getServerSideProps = async () => {
   const apiHost = process.env.API_HOST;
@@ -37,7 +37,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
   return (
     <>
       <Head>
-        <title>{name}</title>
+        <title>Accueil - {name}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href={favicon} />
@@ -59,8 +59,8 @@ const Home: NextPage<Props> = ({ highlights }) => {
             <h2 className="text-2xl py-1 px-2 font-semibold">Dérnieres actualités</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full row-span-3">
-            {highlights.map((highlight) => (
-              <NewsCard news={highlight} className="h-full overflow-hidden" />
+            {highlights.slice(0,4).map((highlight) => (
+              <NewsCard news={highlight} />
             ))}
           </div>
         </div>

@@ -35,6 +35,14 @@ class Page(models.Model):
         return self.title
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class News(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255)
@@ -43,6 +51,7 @@ class News(models.Model):
     image = models.ImageField(upload_to="images/", blank=True, null=True)
     is_active = models.BooleanField(default=True)
     author = models.CharField(max_length=255, blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True)
 
     def __str__(self):
         return self.title

@@ -31,6 +31,11 @@ export interface ILayout {
   siteSettings: ISiteSettings;
 }
 
+export interface INewsContext {
+  newsByCategory: ICategory[];
+  newsByDate: ICategory[];
+}
+
 export interface INews {
   id: number;
   date_published: string;
@@ -40,4 +45,30 @@ export interface INews {
   image: string;
   is_active: boolean;
   author: string;
+  categories: ICategory[];
 }
+
+export interface IPagination<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+
+export interface IActualites extends IPagination<INews> {
+  page: number;
+}
+
+export interface ICategory {
+  slug: string;
+  name: string;
+  news: INews[];
+}
+
+export type IActiveState = Record<
+  ICategory["slug"],
+  {
+    isActive: boolean;
+    news: ICategory["news"];
+  }
+>;

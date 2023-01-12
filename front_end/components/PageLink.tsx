@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const isPageActive = (pathname: string, page: IPage) => {
-  if (page.slug === "" && pathname === "/") return true;
+  if (page.slug === "home" && pathname === "/") return true;
   if (pathname.includes(page.slug)) return true;
   return false;
 };
@@ -44,7 +44,7 @@ const PageLink: FC<Props> = ({ page }) => {
           backgroundColor: brand_color,
         }}
       />
-      <Link href={page.slug} className="flex items-center relative">
+      <Link href={page.slug === "home" ? "/" : page.slug} className="flex items-center relative">
         <FontAwesomeIcon icon={icons[page.icon]} className="mr-3 text-sm" />
         <span className="inline-block leading-[0.768em]">{page.title}</span>
       </Link>
