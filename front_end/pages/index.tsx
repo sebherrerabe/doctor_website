@@ -1,0 +1,72 @@
+import { ILayout, INews, IPage, ISiteSettings } from "../types";
+
+import Head from "next/head";
+import LayoutContext from "../context/Context";
+import NewsCard from "../components/NewsCard";
+import { NextPage } from "next";
+import axios from "axios";
+import { useContext, useRef } from "react";
+
+export const getServerSideProps = async () => {
+  const apiHost = process.env.API_HOST;
+  const { data: siteSettings } = await axios.get<ISiteSettings>(`${apiHost}/api/site-settings`);
+  const { data: pages } = await axios.get<IPage[]>(`${apiHost}/api/pages`);
+  const { data: highlights } = await axios.get<INews[]>(`${apiHost}/api/news/?highlights`);
+
+  const layout: ILayout = {
+    pages,
+    siteSettings,
+  };
+
+  return {
+    props: {
+      highlights,
+      layout,
+    },
+  };
+};
+
+interface Props {
+  highlights: INews[];
+}
+
+const Home: NextPage<Props> = ({ highlights }) => {
+  const { siteSettings } = useContext(LayoutContext) || {};
+  const { name, description, favicon, brand_color, position, primary_color, main_image } = siteSettings || {};
+
+  return (
+    <>
+      <Head>
+        <title>{name}</title>
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href={favicon} />
+      </Head>
+      <div className="grid grid-rows-6 h-full w-full gap-8">
+        <div
+          className="w-full p-8 flex flex-col justify-end bg-cover bg-center row-span-4"
+          style={{ backgroundImage: `url(${main_image})` }}
+        >
+          <h1 className="text-5xl w-fit p-2 font-medium" style={{ backgroundColor: brand_color, color: primary_color }}>
+            {name}
+          </h1>
+          <p className="text-3xl w-fit p-1 mt-4" style={{ backgroundColor: primary_color, color: brand_color }}>
+            {position}
+          </p>
+        </div>
+        <div className="w-full grid grid-rows-4 gap-8 row-span-2">
+          <div className="flex items-center w-full" style={{ backgroundColor: brand_color, color: primary_color }}>
+            <h2 className="text-2xl py-1 px-2 font-semibold">Dérnieres actualités</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full row-span-3">
+            {highlights.map((highlight) => (
+              <NewsCard news={highlight} className="h-full overflow-hidden" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Home;
