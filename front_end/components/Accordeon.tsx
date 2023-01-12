@@ -6,6 +6,7 @@ import Link from "next/link";
 import LayoutContext from "../context/Context";
 import { IActiveState, INews } from "../types";
 import truncateString from "../utils/truncateString";
+import capitalize from "../utils/capitalize";
 
 interface Props {
   slug: string;
@@ -18,20 +19,20 @@ interface Props {
 const Accordeon: FC<Props> = ({ slug, title, isActive, setIsActive, news }) => {
   const { siteSettings } = useContext(LayoutContext) || {};
   const { brand_color } = siteSettings || {};
-  
+
   const onClick = () =>
     setIsActive((prevState) => ({ ...prevState, [slug]: { ...prevState[slug], isActive: !prevState[slug].isActive } }));
 
   return (
     <div className="w-full">
       <div className="w-full flex items-center justify-between p-2 cursor-pointer" onClick={onClick}>
-        <span className="font-semibold">{title}</span>
+        <span className="font-semibold">{capitalize(title)}</span>
         <FontAwesomeIcon
           icon={faChevronDown}
-          className={`text-sm transition-transform duration-300 ${isActive ? "rotate-180" : ""}`}
+          className={`text-sm transition-transform duration-300 ease-in-out ${isActive ? "rotate-180" : ""}`}
         />
       </div>
-      <div className={`overflow-hidden transition-all duration-300 ${isActive ? "max-h-screen" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-screen" : "max-h-0"}`}>
         <ul>
           {news.map((news) => (
             <li className="py-2 px-4 flex w-full">

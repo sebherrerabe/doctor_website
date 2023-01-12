@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
 import LayoutContext from "../context/Context";
-import { IActiveState, ICategory, INews } from "../types";
+import { IActiveState, ICategory } from "../types";
 import Accordeon from "./Accordeon";
 
 interface Props {
