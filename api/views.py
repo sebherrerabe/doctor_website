@@ -51,6 +51,8 @@ class NewsByDateListView(APIView):
         dates = set(date.strftime("%B %Y") for date in dates)
         list = []
         for date in dates:
-            news = News.objects.filter(date_published__month=datetime.strptime(date, "%B %Y").month)
+            news = News.objects.filter(date_published__month=datetime.strptime(date, "%B %Y").month).order_by(
+                "-date_published"
+            )
             list.append({"name": date, "news": NewsSerializer(news, many=True).data})
         return Response(list)

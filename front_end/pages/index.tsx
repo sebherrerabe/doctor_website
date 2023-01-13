@@ -1,11 +1,11 @@
 import { ILayout, INews, IPage, ISiteSettings } from "../types";
 
-import axios from "axios";
-import { NextPage } from "next";
 import Head from "next/head";
-import { useContext } from "react";
-import NewsCard from "../components/NewsCard";
 import LayoutContext from "../context/Context";
+import NewsCard from "../components/NewsCard";
+import { NextPage } from "next";
+import axios from "axios";
+import { useContext } from "react";
 
 export const getServerSideProps = async () => {
   const apiHost = process.env.API_HOST;
@@ -37,7 +37,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
   return (
     <>
       <Head>
-        <title>Accueil - {name}</title>
+        <title>{`Accueil - ${name}`}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href={favicon} />

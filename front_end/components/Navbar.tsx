@@ -21,7 +21,7 @@ const Navbar: FC<Props> = ({ className }) => {
       </Link>
       <ul className="mt-10">
         {pages?.map((page) => (
-          <PageLink page={page} key={page.id} />
+          <PageLink page={page} key={page.slug} />
         ))}
       </ul>
     </div>

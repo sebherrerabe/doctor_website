@@ -14,7 +14,6 @@ export interface ISiteSettings {
 }
 
 export interface IPage {
-  id: number;
   title: string;
   slug: string;
   content: string;
@@ -60,7 +59,7 @@ export interface IActualites extends IPagination<INews> {
 }
 
 export interface ICategory {
-  slug: string;
+  slug?: string;
   name: string;
   news: INews[];
 }

@@ -1,7 +1,8 @@
 import { FC, useContext, useState } from "react";
-import LayoutContext from "../context/Context";
 import { IActiveState, ICategory } from "../types";
+
 import Accordeon from "./Accordeon";
+import LayoutContext from "../context/Context";
 
 interface Props {
   title: string;
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const initiateState = (elements: ICategory[]): IActiveState =>
-  elements.reduce((acc, curr) => ({ ...acc, [curr.slug]: { isActive: false } }), {});
+  elements.reduce((acc, curr) => ({ ...acc, [curr.name]: { isActive: false } }), {});
 
 const NewsSidebarSection: FC<Props> = ({ title, elements }) => {
   const { siteSettings } = useContext(LayoutContext) || {};
@@ -24,11 +25,11 @@ const NewsSidebarSection: FC<Props> = ({ title, elements }) => {
       </div>
       {elements.map((element) => (
         <Accordeon
-          key={element.slug}
+          key={element.name}
           title={element.name}
-          isActive={activeState[element.slug].isActive}
+          isActive={activeState[element.name].isActive}
           setIsActive={setIsActive}
-          slug={element.slug}
+          name={element.name}
           news={element.news}
         />
       ))}

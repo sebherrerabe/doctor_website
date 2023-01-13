@@ -29,8 +29,7 @@ const PageLink: FC<Props> = ({ page }) => {
 
   return (
     <li
-      key={page.id}
-      className="mt-10 py-2 px-2 w-fit relative transition-all duration-500 ease-in-out cursor-pointer"
+      className="mt-8 py-2 px-2 w-fit relative transition-all duration-500 ease-in-out cursor-pointer"
       style={{
         color: isActive || isHovering ? primary_color : brand_color,
       }}

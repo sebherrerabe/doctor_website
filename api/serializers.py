@@ -11,12 +11,21 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
 class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Page
-        fields = "__all__"
+        fields = ("title", "slug", "icon")
+
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = "__all__"
+        fields = (
+            "id",
+            "date_published",
+            "description",
+            "title",
+            "image",
+        )
+
+
 class CategorySerializer(serializers.ModelSerializer):
     news = serializers.SerializerMethodField()
 
@@ -26,6 +35,3 @@ class CategorySerializer(serializers.ModelSerializer):
 
     def get_news(self, obj):
         return NewsSerializer(obj.news_set.all(), many=True).data
-
-
-
