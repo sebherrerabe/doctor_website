@@ -1,8 +1,8 @@
 import { FC, useContext, useState } from "react";
-import { IActiveState, ICategory } from "../types";
+import { IActiveState, ICategory } from "../../types";
 
 import Accordeon from "./Accordeon";
-import LayoutContext from "../context/Context";
+import LayoutContext from "../../context/Context";
 
 interface Props {
   title: string;

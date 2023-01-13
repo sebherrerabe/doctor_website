@@ -36,7 +36,7 @@ export interface INewsContext {
 }
 
 export interface INews {
-  id: number;
+  slug: string;
   date_published: string;
   title: string;
   description: string;
@@ -44,7 +44,7 @@ export interface INews {
   image: string;
   is_active: boolean;
   author: string;
-  categories: ICategory[];
+  categories: ICategory[] | string[];
 }
 
 export interface IPagination<T> {
@@ -65,9 +65,18 @@ export interface ICategory {
 }
 
 export type IActiveState = Record<
-  ICategory["slug"],
+  ICategory["name"],
   {
     isActive: boolean;
     news: ICategory["news"];
   }
 >;
+
+export interface IContactDetails {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  embedded_map: string;
+}

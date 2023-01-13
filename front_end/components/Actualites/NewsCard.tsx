@@ -1,11 +1,9 @@
 import { FC, useContext, useState } from "react";
+import { convertHexToRGBColor, formatDjangoDate, truncateString } from "../../utils/general";
 
+import { INews } from "../../types";
+import LayoutContext from "../../context/Context";
 import Link from "next/link";
-import LayoutContext from "../context/Context";
-import { INews } from "../types";
-import convertHexToRGBColor from "../utils/convertHexToRGBColor";
-import formatDjangoDate from "../utils/formatDjangoDate";
-import truncateString from "../utils/truncateString";
 
 interface Props {
   news: INews;
@@ -20,7 +18,7 @@ interface Props {
 
 const NewsCard: FC<Props> = ({
   news,
-  className = "overflow-hidden",
+  className = "overflow-hidden bg-center bg-cover bg-no-repeat",
   transformPorcentage = "-50%",
   titleClassName = "p-1 text-sm font-bold w-fit",
   dateClassName = "p-1 text-xs w-fit mt-1",
@@ -34,7 +32,7 @@ const NewsCard: FC<Props> = ({
 
   return (
     <Link
-      href={`/actualites/${news.id}`}
+      href={`/actualites/${news.slug}`}
       className={className}
       style={{ backgroundImage: `url(${news.image})` }}
       onMouseEnter={() => setIsHovering(true)}

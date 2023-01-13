@@ -1,5 +1,5 @@
 import React, { FC, useContext } from "react";
-import LayoutContext from "../context/Context";
+import LayoutContext from "../../context/Context";
 
 interface Props {
   title: string;

@@ -1,6 +1,7 @@
 from django.db import models
 from colorfield.fields import ColorField
 from tinymce.models import HTMLField
+from django.utils.text import slugify
 
 
 class SiteSettings(models.Model):
@@ -45,6 +46,7 @@ class Category(models.Model):
 
 class News(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=255, blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     content = HTMLField(blank=True, null=True)
@@ -55,3 +57,18 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title + "-" + str(self.date_published) + "-" + str(self.id))
+        super(News, self).save(*args, **kwargs)
+
+
+class ContactDetails(models.Model):
+    name = models.CharField(max_length=255, default="Contact")
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)
+    address = models.TextField()
+    embedded_map = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

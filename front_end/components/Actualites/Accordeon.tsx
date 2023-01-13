@@ -1,12 +1,11 @@
 import { Dispatch, FC, SetStateAction, useContext } from "react";
-import { IActiveState, INews } from "../types";
+import { IActiveState, INews } from "../../types";
+import { capitalize, truncateString } from "../../utils/general";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import LayoutContext from "../context/Context";
+import LayoutContext from "../../context/Context";
 import Link from "next/link";
-import capitalize from "../utils/capitalize";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import truncateString from "../utils/truncateString";
 
 interface Props {
   name: string;
@@ -35,8 +34,8 @@ const Accordeon: FC<Props> = ({ name, title, isActive, setIsActive, news }) => {
       <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isActive ? "max-h-screen" : "max-h-0"}`}>
         <ul>
           {news.map((news) => (
-            <li className="py-2 px-4 flex w-full" key={news.id}>
-              <Link href={`/news/${news.id}`} style={{ color: brand_color }}>
+            <li className="py-2 px-4 flex w-full" key={news.slug}>
+              <Link href={`/actualites/${news.slug}`} style={{ color: brand_color }}>
                 {truncateString(news.title, 35)}
               </Link>
             </li>

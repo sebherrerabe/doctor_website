@@ -1,28 +1,20 @@
-import { IActualites, ICategory, ILayout, INews, IPage, IPagination, ISiteSettings } from "../../types";
-
-import axios from "axios";
-import { NextPage } from "next";
-import Head from "next/head";
+import { GetServerSideProps, NextPage } from "next";
+import { IActualites, ICategory, INews, IPagination } from "../../types";
+import { getLayout, getNewsList, getNewsListByCategory, getNewsListByDate } from "../../utils/fetchData";
 import { useContext, useState } from "react";
-import PageLayout from "../../components/PageLayout";
+
+import ActualitesPageLayout from "../../components/Actualites/ActualitesPageLayout";
+import Head from "next/head";
 import LayoutContext from "../../context/Context";
-import News from "../../components/News";
-import NewsSidebar from "../../components/NewsSidebar";
-import NewsContext from "../../context/NewsContext";
+import NewsList from "../../components/Actualites/NewsList";
 
-export const getServerSideProps = async () => {
-  const apiHost = process.env.API_HOST;
-  const { data: siteSettings } = await axios.get<ISiteSettings>(`${apiHost}/api/site-settings`);
-  const { data: pages } = await axios.get<IPage[]>(`${apiHost}/api/pages`);
-  const { data: news } = await axios.get<IPagination<INews>>(`${apiHost}/api/news/`);
-  const { data: newsByCategory } = await axios.get<ICategory[]>(`${apiHost}/api/news/category/`);
-  const { data: newsByDate } = await axios.get<ICategory[]>(`${apiHost}/api/news/date/`);
-
-  const layout: ILayout = {
-    pages,
-    siteSettings,
-  };
-
+export const getServerSideProps: GetServerSideProps = async () => {
+  const [news, newsByCategory, newsByDate, layout] = await Promise.all([
+    getNewsList(),
+    getNewsListByCategory(),
+    getNewsListByDate(),
+    getLayout(),
+  ]);
   return {
     props: {
       news,
@@ -53,14 +45,9 @@ const Actualites: NextPage<Props> = ({ news, newsByCategory, newsByDate }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href={favicon} />
       </Head>
-      <NewsContext.Provider value={{ newsByCategory, newsByDate }}>
-        <PageLayout title="Actualités">
-          <div className="h-full w-full grid grid-cols-5">
-            <News newsPagination={newsPagination} setNewsPagination={setNewsPagination} />
-            <NewsSidebar />
-          </div>
-        </PageLayout>
-      </NewsContext.Provider>
+      <ActualitesPageLayout newsByCategory={newsByCategory} newsByDate={newsByDate}>
+        <NewsList newsPagination={newsPagination} setNewsPagination={setNewsPagination} />
+      </ActualitesPageLayout>
     </>
   );
 };

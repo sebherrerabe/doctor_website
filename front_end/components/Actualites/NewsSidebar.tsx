@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import LayoutContext from "../context/Context";
-import NewsContext from "../context/NewsContext";
+import LayoutContext from "../../context/Context";
+import NewsContext from "../../context/NewsContext";
 import NewsSidebarSection from "./NewsSidebarSection";
 
 const NewsSidebar = () => {

@@ -3,8 +3,8 @@ import * as icons from "@fortawesome/free-solid-svg-icons";
 import { FC, useContext, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IPage } from "../types";
-import LayoutContext from "../context/Context";
+import { IPage } from "../../types";
+import LayoutContext from "../../context/Context";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -43,7 +43,7 @@ const PageLink: FC<Props> = ({ page }) => {
           backgroundColor: brand_color,
         }}
       />
-      <Link href={page.slug === "home" ? "/" : page.slug} className="flex items-center relative">
+      <Link href={page.slug === "home" ? "/" : `/${page.slug}`} className="flex items-center relative">
         <FontAwesomeIcon icon={icons[page.icon]} className="mr-3 text-sm" />
         <span className="inline-block leading-[0.768em]">{page.title}</span>
       </Link>

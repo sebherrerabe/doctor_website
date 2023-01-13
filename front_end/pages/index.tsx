@@ -1,30 +1,18 @@
-import { ILayout, INews, IPage, ISiteSettings } from "../types";
+import { GetServerSideProps, NextPage } from "next";
+import { getHighlights, getLayout } from "../utils/fetchData";
 
 import Head from "next/head";
+import { INews } from "../types";
 import LayoutContext from "../context/Context";
-import NewsCard from "../components/NewsCard";
-import { NextPage } from "next";
-import axios from "axios";
+import NewsCard from "../components/Actualites/NewsCard";
 import { useContext } from "react";
 
-export const getServerSideProps = async () => {
-  const apiHost = process.env.API_HOST;
-  const { data: siteSettings } = await axios.get<ISiteSettings>(`${apiHost}/api/site-settings`);
-  const { data: pages } = await axios.get<IPage[]>(`${apiHost}/api/pages`);
-  const { data: highlights } = await axios.get<INews[]>(`${apiHost}/api/news/?highlights`);
-
-  const layout: ILayout = {
-    pages,
-    siteSettings,
-  };
-
-  return {
-    props: {
-      highlights,
-      layout,
-    },
-  };
-};
+export const getServerSideProps: GetServerSideProps = async () => ({
+  props: {
+    highlights: await getHighlights(),
+    layout: await getLayout(),
+  },
+});
 
 interface Props {
   highlights: INews[];
@@ -59,7 +47,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
             <h2 className="text-2xl py-1 px-2 font-semibold">Dérnieres actualités</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full row-span-3">
-            {highlights.slice(0,4).map((highlight) => (
+            {highlights.slice(0, 4).map((highlight) => (
               <NewsCard news={highlight} />
             ))}
           </div>

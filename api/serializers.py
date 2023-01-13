@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SiteSettings, Page, News, Category
+from .models import SiteSettings, Page, News, Category, ContactDetails
 
 
 class SiteSettingsSerializer(serializers.ModelSerializer):
@@ -8,17 +8,34 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PageSerializer(serializers.ModelSerializer):
+class PageListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Page
         fields = ("title", "slug", "icon")
 
 
-class NewsSerializer(serializers.ModelSerializer):
+class PageDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Page
+        fields = "__all__"
+
+
+class NewsDetailSerializer(serializers.ModelSerializer):
+    categories = serializers.SerializerMethodField()
+
+    class Meta:
+        model = News
+        fields = "__all__"
+
+    def get_categories(self, obj):
+        return obj.categories.values_list("name", flat=True)
+
+
+class NewsListSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = (
-            "id",
+            "slug",
             "date_published",
             "description",
             "title",
@@ -34,4 +51,10 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_news(self, obj):
-        return NewsSerializer(obj.news_set.all(), many=True).data
+        return NewsListSerializer(obj.news_set.all(), many=True).data
+
+
+class ContactDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactDetails
+        fields = "__all__"

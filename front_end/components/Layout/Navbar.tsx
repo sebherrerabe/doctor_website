@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 
 import Image from "next/image";
-import LayoutContext from "../context/Context";
+import LayoutContext from "../../context/Context";
 import Link from "next/link";
 import PageLink from "./PageLink";
 
