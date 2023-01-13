@@ -8,9 +8,9 @@ import LayoutContext from "../../context/Context";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const isPageActive = (pathname: string, page: IPage) => {
+const isPageActive = (pathname: string, page: IPage, query?: string) => {
   if (page.slug === "home" && pathname === "/") return true;
-  if (pathname.includes(page.slug)) return true;
+  if (pathname.includes(page.slug) || query?.includes(page.slug)) return true;
   return false;
 };
 
@@ -24,8 +24,8 @@ const PageLink: FC<Props> = ({ page }) => {
   const { brand_color, primary_color } = siteSettings || {};
   const router = useRouter();
 
-  const { pathname } = router;
-  const isActive = isPageActive(pathname, page);
+  const { pathname, query } = router;
+  const isActive = isPageActive(pathname, page, query?.slug as string);
 
   return (
     <li

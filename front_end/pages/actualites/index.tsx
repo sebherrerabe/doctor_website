@@ -7,6 +7,7 @@ import ActualitesPageLayout from "../../components/Actualites/ActualitesPageLayo
 import Head from "next/head";
 import LayoutContext from "../../context/Context";
 import NewsList from "../../components/Actualites/NewsList";
+import Motion from "../../components/Layout/Motion";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const [news, newsByCategory, newsByDate, layout] = await Promise.all([
@@ -38,7 +39,7 @@ const Actualites: NextPage<Props> = ({ news, newsByCategory, newsByDate }) => {
   const [newsPagination, setNewsPagination] = useState<IActualites>({ ...news, page: 1 });
 
   return (
-    <>
+    <Motion>
       <Head>
         <title>{`Actualités - ${name}`}</title>
         <meta name="description" content={description} />
@@ -48,7 +49,7 @@ const Actualites: NextPage<Props> = ({ news, newsByCategory, newsByDate }) => {
       <ActualitesPageLayout newsByCategory={newsByCategory} newsByDate={newsByDate}>
         <NewsList newsPagination={newsPagination} setNewsPagination={setNewsPagination} />
       </ActualitesPageLayout>
-    </>
+    </Motion>
   );
 };
 

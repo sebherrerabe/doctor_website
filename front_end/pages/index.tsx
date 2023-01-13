@@ -6,6 +6,7 @@ import { INews } from "../types";
 import LayoutContext from "../context/Context";
 import NewsCard from "../components/Actualites/NewsCard";
 import { useContext } from "react";
+import Motion from "../components/Layout/Motion";
 
 export const getServerSideProps: GetServerSideProps = async () => ({
   props: {
@@ -23,7 +24,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
   const { name, description, favicon, brand_color, position, primary_color, main_image } = siteSettings || {};
 
   return (
-    <>
+    <Motion>
       <Head>
         <title>{`Accueil - ${name}`}</title>
         <meta name="description" content={description} />
@@ -48,12 +49,12 @@ const Home: NextPage<Props> = ({ highlights }) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full row-span-3">
             {highlights.slice(0, 4).map((highlight) => (
-              <NewsCard news={highlight} />
+              <NewsCard news={highlight} key={highlight.slug} />
             ))}
           </div>
         </div>
       </div>
-    </>
+    </Motion>
   );
 };
 

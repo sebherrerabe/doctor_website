@@ -8,6 +8,7 @@ import ContactForm from "../components/Contact/ContactForm";
 import PageLayout from "../components/Layout/PageLayout";
 import LayoutContext from "../context/Context";
 import { IContactDetails } from "../types";
+import Motion from "../components/Layout/Motion";
 
 export const getServerSideProps: GetServerSideProps = async () => ({
   props: {
@@ -24,7 +25,7 @@ const Contact: NextPage<Props> = ({ contactDetails: { name: contactName, address
   const { siteSettings } = useContext(LayoutContext) || {};
   const { name, description, favicon, brand_color, primary_color } = siteSettings || {};
   return (
-    <>
+    <Motion>
       <Head>
         <title>{`Contact - ${name}`}</title>
         <meta name="description" content={description} />
@@ -37,7 +38,7 @@ const Contact: NextPage<Props> = ({ contactDetails: { name: contactName, address
           <ContactForm />
         </div>
       </PageLayout>
-    </>
+    </Motion>
   );
 };
 

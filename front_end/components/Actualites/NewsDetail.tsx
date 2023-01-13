@@ -13,8 +13,8 @@ const NewsDetail: FC<Props> = ({ newsDetail: { categories, author, content, date
   <div className="col-span-4 pr-4 overflow-y-auto">
     {categories?.length > 0 && (
       <div className="w-full flex">
-        {categories.map((category) => (
-          <NewsTag tag={category as string} />
+        {categories.map((category,idx) => (
+          <NewsTag tag={category as string} key={idx} />
         ))}
       </div>
     )}

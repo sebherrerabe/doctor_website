@@ -7,6 +7,7 @@ import Head from "next/head";
 import LayoutContext from "../../context/Context";
 import NewsDetail from "../../components/Actualites/NewsDetail";
 import { useContext } from "react";
+import Motion from "../../components/Layout/Motion";
 
 export const getServerSideProps: GetServerSideProps<Record<string, unknown>, { slug: string }> = async ({ params }) => {
   try {
@@ -44,7 +45,7 @@ const Actualite: NextPage<Props> = ({ newsByCategory, newsByDate, newsDetail }) 
   const { siteSettings } = useContext(LayoutContext) || {};
   const { name, description, favicon } = siteSettings || {};
   return (
-    <>
+    <Motion>
       <Head>
         <title>{`Actualités - ${name}`}</title>
         <meta name="description" content={description} />
@@ -54,7 +55,7 @@ const Actualite: NextPage<Props> = ({ newsByCategory, newsByDate, newsDetail }) 
       <ActualitesPageLayout newsByCategory={newsByCategory} newsByDate={newsByDate}>
         <NewsDetail newsDetail={newsDetail} />
       </ActualitesPageLayout>
-    </>
+    </Motion>
   );
 };
 

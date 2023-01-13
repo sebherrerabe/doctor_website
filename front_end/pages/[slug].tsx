@@ -5,6 +5,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FC, useContext } from "react";
+import Motion from "../components/Layout/Motion";
 import PageLayout from "../components/Layout/PageLayout";
 import LayoutContext from "../context/Context";
 import { IPage } from "../types";
@@ -38,9 +39,8 @@ interface Props {
 const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_keywords, image, content } }) => {
   const { siteSettings } = useContext(LayoutContext) || {};
   const { name, favicon, secondary_color } = siteSettings || {};
-  console.log(content);
   return (
-    <>
+    <Motion>
       <Head>
         <title>{`${title} - ${name}`}</title>
         <meta name="description" content={meta_description} />
@@ -73,7 +73,7 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
           </div>
         </div>
       </PageLayout>
-    </>
+    </Motion>
   );
 };
 
