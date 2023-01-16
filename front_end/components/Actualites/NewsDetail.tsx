@@ -28,7 +28,7 @@ const NewsDetail: FC<Props> = ({ newsDetail: { categories, author, content, date
         role="img"
         aria-label="image"
         className="w-full h-[34rem] mt-8 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${apiHost}${image})` }}
+        style={{ backgroundImage: `url(${apiHost}${image.image})` }}
       />
       <div className="text-lg mt-8" dangerouslySetInnerHTML={{ __html: content }}></div>
     </div>

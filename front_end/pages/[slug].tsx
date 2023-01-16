@@ -1,15 +1,15 @@
+import { FC, useContext } from "react";
 import { faArrowLeft, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { getLayout, getPageDetail } from "../utils/fetchData";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSideProps } from "next";
-
 import Head from "next/head";
+import { IPage } from "../types";
+import LayoutContext from "../context/Context";
 import Link from "next/link";
-import { FC, useContext } from "react";
 import Motion from "../components/Layout/Motion";
 import PageLayout from "../components/Layout/PageLayout";
-import LayoutContext from "../context/Context";
-import { IPage } from "../types";
-import { getLayout, getPageDetail } from "../utils/fetchData";
 
 const apiHost = process.env.API_HOST;
 
@@ -46,7 +46,7 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
         <meta name="description" content={meta_description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={meta_keywords} />
-        <link rel="icon" href={favicon} />
+        <link rel="icon" href={favicon?.image} />
       </Head>
       <PageLayout title={title}>
         <div className="h-full w-full grid grid-cols-4 gap-8">
@@ -68,7 +68,7 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
           <div>
             <div
               className="w-full h-[28rem] bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${apiHost}${image})`, border: `0.5rem solid ${secondary_color}` }}
+              style={{ backgroundImage: `url(${apiHost}${image?.image})`, border: `0.5rem solid ${secondary_color}` }}
             ></div>
           </div>
         </div>

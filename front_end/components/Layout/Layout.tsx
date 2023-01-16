@@ -1,8 +1,8 @@
 import { FC, useContext } from "react";
 
 import LayoutContext from "../../context/Context";
-import { convertHexToRGBColor } from "../../utils/general";
 import Navbar from "./Navbar";
+import { convertHexToRGBColor } from "../../utils/general";
 
 interface Props {
   children: JSX.Element;
@@ -14,7 +14,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <div
       className="h-full w-full flex bg-center bg-cover bg-no-repeat"
-      style={{ backgroundImage: `url(${background_image})`, color: text_color }}
+      style={{ backgroundImage: `url(${background_image?.image})`, color: text_color }}
     >
       <div
         className="h-screen w-screen bg-white/80 flex"

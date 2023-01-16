@@ -5,9 +5,9 @@ import { getLayout, getNewsDetail, getNewsListByCategory, getNewsListByDate } fr
 import ActualitesPageLayout from "../../components/Actualites/ActualitesPageLayout";
 import Head from "next/head";
 import LayoutContext from "../../context/Context";
+import Motion from "../../components/Layout/Motion";
 import NewsDetail from "../../components/Actualites/NewsDetail";
 import { useContext } from "react";
-import Motion from "../../components/Layout/Motion";
 
 export const getServerSideProps: GetServerSideProps<Record<string, unknown>, { slug: string }> = async ({ params }) => {
   try {
@@ -50,7 +50,7 @@ const Actualite: NextPage<Props> = ({ newsByCategory, newsByDate, newsDetail }) 
         <title>{`Actualités - ${name}`}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href={favicon} />
+        <link rel="icon" href={favicon?.image} />
       </Head>
       <ActualitesPageLayout newsByCategory={newsByCategory} newsByDate={newsByDate}>
         <NewsDetail newsDetail={newsDetail} />

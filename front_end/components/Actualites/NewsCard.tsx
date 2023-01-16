@@ -34,7 +34,7 @@ const NewsCard: FC<Props> = ({
     <Link
       href={`/actualites/${news.slug}`}
       className={className}
-      style={{ backgroundImage: `url(${news.image})` }}
+      style={{ backgroundImage: `url(${news.image.image})` }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >

@@ -4,9 +4,9 @@ import { getHighlights, getLayout } from "../utils/fetchData";
 import Head from "next/head";
 import { INews } from "../types";
 import LayoutContext from "../context/Context";
+import Motion from "../components/Layout/Motion";
 import NewsCard from "../components/Actualites/NewsCard";
 import { useContext } from "react";
-import Motion from "../components/Layout/Motion";
 
 export const getServerSideProps: GetServerSideProps = async () => ({
   props: {
@@ -29,12 +29,12 @@ const Home: NextPage<Props> = ({ highlights }) => {
         <title>{`Accueil - ${name}`}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href={favicon} />
+        <link rel="icon" href={favicon?.image} />
       </Head>
       <div className="grid grid-rows-6 h-full w-full gap-8">
         <div
           className="w-full p-8 flex flex-col justify-end bg-cover bg-center row-span-4"
-          style={{ backgroundImage: `url(${main_image})` }}
+          style={{ backgroundImage: `url(${main_image?.image})` }}
         >
           <h1 className="text-5xl w-fit p-2 font-medium" style={{ backgroundColor: brand_color, color: primary_color }}>
             {name}

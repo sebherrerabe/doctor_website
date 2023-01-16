@@ -3,10 +3,10 @@ export interface ISiteSettings {
   name: string;
   position: string;
   description: string;
-  favicon: string;
-  logo: string;
-  background_image: string;
-  main_image: string;
+  favicon: IImage;
+  logo: IImage;
+  background_image: IImage;
+  main_image: IImage;
   brand_color: string;
   primary_color: string;
   secondary_color: string;
@@ -18,7 +18,7 @@ export interface IPage {
   slug: string;
   content: string;
   icon: string;
-  image: string | null;
+  image: IImage | null;
   meta_description: string;
   meta_keywords: string;
   is_active: boolean;
@@ -41,7 +41,7 @@ export interface INews {
   title: string;
   description: string;
   content: string;
-  image: string;
+  image: IImage;
   is_active: boolean;
   author: string;
   categories: ICategory[] | string[];
@@ -79,4 +79,10 @@ export interface IContactDetails {
   phone: string;
   address: string;
   embedded_map: string;
+}
+
+export interface IImage {
+  name: string;
+  image: string;
+  alt: string;
 }

@@ -1,8 +1,16 @@
 from rest_framework import serializers
-from .models import SiteSettings, Page, News, Category, ContactDetails
+from .models import SiteSettings, Page, News, Category, ContactDetails, Image
 
-
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = "__all__"
 class SiteSettingsSerializer(serializers.ModelSerializer):
+    favicon = ImageSerializer(read_only=True)
+    logo = ImageSerializer(read_only=True)
+    background_image = ImageSerializer(read_only=True)
+    main_image = ImageSerializer(read_only=True)
+
     class Meta:
         model = SiteSettings
         fields = "__all__"
@@ -15,6 +23,7 @@ class PageListSerializer(serializers.ModelSerializer):
 
 
 class PageDetailSerializer(serializers.ModelSerializer):
+    image = ImageSerializer(read_only=True)
     class Meta:
         model = Page
         fields = "__all__"
@@ -22,6 +31,7 @@ class PageDetailSerializer(serializers.ModelSerializer):
 
 class NewsDetailSerializer(serializers.ModelSerializer):
     categories = serializers.SerializerMethodField()
+    image = ImageSerializer(read_only=True)
 
     class Meta:
         model = News
@@ -32,6 +42,7 @@ class NewsDetailSerializer(serializers.ModelSerializer):
 
 
 class NewsListSerializer(serializers.ModelSerializer):
+    image = ImageSerializer(read_only=True)
     class Meta:
         model = News
         fields = (
@@ -58,3 +69,6 @@ class ContactDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactDetails
         fields = "__all__"
+
+
+
