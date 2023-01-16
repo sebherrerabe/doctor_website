@@ -12,7 +12,6 @@ class SiteSettings(models.Model):
     position = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField()
     favicon = models.ForeignKey("Image", on_delete=models.SET_NULL, blank=True, null=True, related_name="favicon")
-    logo = models.ForeignKey("Image", on_delete=models.SET_NULL, blank=True, null=True, related_name="logo")
     background_image = models.ForeignKey(
         "Image", on_delete=models.SET_NULL, blank=True, null=True, related_name="background_image"
     )
