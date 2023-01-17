@@ -42,7 +42,6 @@ const Home: NextPage<Props> = ({ highlights }) => {
             fill
             className="-z-10 object-cover"
             priority
-            
           />
           <h1
             className="text-3xl lg:text-5xl w-fit p-2 font-medium"

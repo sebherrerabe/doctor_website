@@ -2,7 +2,6 @@
 
 const webpack = require("webpack");
 
-
 const { parsed: myEnv } = require("dotenv").config({
   path: "../.env",
 });
@@ -14,10 +13,9 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['127.0.0.1']
+    domains: ["127.0.0.1"],
   },
   compress: true,
 };
 
 module.exports = nextConfig;
-
