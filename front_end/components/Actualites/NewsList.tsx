@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, UIEventHandler, useEffect } from "react";
+import { Dispatch, FC, SetStateAction, UIEventHandler, useCallback, useEffect } from "react";
 
 import { IActualites } from "../../types";
 import NewsCard from "./NewsCard";
@@ -12,32 +12,26 @@ interface Props {
 
 const NewsList: FC<Props> = ({ newsPagination, setNewsPagination }) => {
   const screenSize = useScreenSize();
-  const handleScroll = async ({
-    scrollTop,
-    scrollHeight,
-    clientHeight,
-  }: {
-    scrollTop: number;
-    scrollHeight: number;
-    clientHeight: number;
-  }) => {
-    if (scrollTop + clientHeight >= scrollHeight && newsPagination.next) {
-      const newNews = await getNewsList({ page: newsPagination.page + 1 });
-      setNewsPagination((prev) => ({
-        ...prev,
-        results: [...prev.results, ...newNews.results],
-        next: newNews.next,
-        page: prev.page + 1,
-      }));
-    }
-  };
+  const handleScroll = useCallback(
+    async ({ scrollTop, scrollHeight, clientHeight }: { scrollTop: number; scrollHeight: number; clientHeight: number }) => {
+      if (scrollTop + clientHeight >= scrollHeight && newsPagination.next) {
+        const newNews = await getNewsList({ page: newsPagination.page + 1 });
+        setNewsPagination((prev) => ({
+          ...prev,
+          results: [...prev.results, ...newNews.results],
+          next: newNews.next,
+          page: prev.page + 1,
+        }));
+      }
+    },
+    [newsPagination, setNewsPagination]
+  );
 
   useEffect(() => {
     const handleWindowScroll = () => handleScroll(document.documentElement);
     if (screenSize < 1024) window.addEventListener("scroll", handleWindowScroll);
     return () => (screenSize < 1024 ? window.removeEventListener("scroll", handleWindowScroll) : undefined);
-  }, [screenSize, newsPagination, setNewsPagination]);
-
+  }, [screenSize, newsPagination, setNewsPagination, handleScroll]);
   return (
     <div
       className="col-span-4 lg:pr-4 overflow-y-scroll grid lg:auto-rows-[minmax(6rem,1fr)] grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8"
@@ -45,7 +39,10 @@ const NewsList: FC<Props> = ({ newsPagination, setNewsPagination }) => {
     >
       {newsPagination.results.map((newsEl, idx) =>
         idx === 0 ? (
-          <div className="aspect-square md:aspect-video lg:aspect-auto lg:row-span-4 lg:col-span-3 col-span-2 flex overflow-hidden" key={newsEl.slug}>
+          <div
+            className="aspect-square md:aspect-video lg:aspect-auto lg:row-span-4 lg:col-span-3 col-span-2 flex overflow-hidden"
+            key={newsEl.slug}
+          >
             <NewsCard
               news={newsEl}
               className="h-full w-full relative"

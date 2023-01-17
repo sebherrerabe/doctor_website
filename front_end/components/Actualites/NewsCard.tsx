@@ -42,14 +42,7 @@ const NewsCard: FC<Props> = ({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <Image
-        src={news.image.image}
-        alt={news.image.alt || ""}
-        fill
-        className="-z-10 object-cover"
-        sizes={imageSizes}
-        
-      />
+      <Image src={news.image.image} alt={news.image.alt || ""} fill className="-z-10 object-cover" sizes={imageSizes} />
       <div
         className="h-[200%] w-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateY(${isHovering ? transformPorcentage : "0"})` }}
@@ -65,9 +58,11 @@ const NewsCard: FC<Props> = ({
           </p>
         </div>
         <div className="h-1/2 w-full p-2 text-center items-center hidden lg:flex">
-          <span className="p-1 flex" style={{ backgroundColor: convertHexToRGBColor(primary_color, "0.7") }}>
-            {truncateString(news.description, descriptionMaxLength)}
-          </span>
+          <h4>
+            <span className="box-decoration-clone p-1" style={{ backgroundColor: primary_color }}>
+              {truncateString(news.description, descriptionMaxLength)}
+            </span>
+          </h4>
         </div>
       </div>
     </Link>

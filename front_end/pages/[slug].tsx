@@ -58,10 +58,10 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
             {!content ? (
               <div className="w-full h-full flex flex-col items-center justify-center text-red-500 text-xl text-center">
                 <FontAwesomeIcon icon={faExclamationTriangle} size="3x" />
-                <p className="w-1/5">Oops, cette page n'a pas encore été créée.</p>
+                <p className="w-1/5">Oops, cette page n&apos;a pas encore été créée.</p>
                 <Link href="/" className="text-blue-500 mt-8">
                   <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                  Retour à l'accueil
+                  Retour à l&apos;accueil
                 </Link>
               </div>
             ) : undefined}
@@ -71,13 +71,7 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
               className="w-full md:w-1/2 lg:w-full h-[28rem] relative md:mx-auto"
               style={{ border: `0.5rem solid ${secondary_color}` }}
             >
-              <Image
-                src={`${apiHost}${image?.image}`}
-                alt={image?.alt || ""}
-                fill
-                className="-z-10 object-cover"
-                
-              />
+              <Image src={`${apiHost}${image?.image}`} alt={image?.alt || ""} fill className="-z-10 object-cover" />
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ const Navbar: FC = () => {
         icon={faBars}
       />
       <div
-        className={`p-4 lg:p-8 flex flex-col items-center md:items-start overflow-y-auto text-xl font-semibold fixed lg:static z-50 w-screen lg:w-fit lg:h-full transition-all duration-300 ease-in-out shadow-xl lg:shadow-none lg:translate-y-0 ${
+        className={`p-4 lg:p-8 flex flex-col items-center md:items-start text-xl font-semibold fixed lg:static z-50 w-screen lg:w-fit lg:h-full transition-all duration-300 ease-in-out shadow-xl lg:shadow-none lg:translate-y-0 ${
           isNavbarOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{
