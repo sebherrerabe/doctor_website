@@ -1,13 +1,13 @@
 import * as icons from "@fortawesome/free-solid-svg-icons";
 
-import { FC, useContext, useState } from "react";
+import { Dispatch, FC, SetStateAction, useContext, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IPage } from "../../types";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import LayoutContext from "../../context/Context";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const isPageActive = (pathname: string, page: IPage, query?: string) => {
   if (page.slug === "home" && pathname === "/") return true;
@@ -17,9 +17,10 @@ const isPageActive = (pathname: string, page: IPage, query?: string) => {
 
 interface Props {
   page: IPage;
+  setIsNavbarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const PageLink: FC<Props> = ({ page }) => {
+const PageLink: FC<Props> = ({ page, setIsNavbarOpen }) => {
   const [isHovering, setIsHovering] = useState(false);
   const { siteSettings } = useContext(LayoutContext) || {};
   const { brand_color, primary_color } = siteSettings || {};
@@ -44,7 +45,11 @@ const PageLink: FC<Props> = ({ page }) => {
           backgroundColor: brand_color,
         }}
       />
-      <Link href={page.slug === "home" ? "/" : `/${page.slug}`} className="flex items-center relative">
+      <Link
+        href={page.slug === "home" ? "/" : `/${page.slug}`}
+        className="flex items-center relative"
+        onClick={() => setIsNavbarOpen(false)}
+      >
         <FontAwesomeIcon icon={(icons as unknown as Record<string, IconProp>)[page.icon]} className="mr-3 text-sm" />
         <span className="inline-block leading-[0.768em]">{page.title}</span>
       </Link>

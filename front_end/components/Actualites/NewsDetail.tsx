@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { INews } from "../../types";
+import Image from "next/image";
 import NewsTag from "./NewsTag";
 import { formatDjangoDate } from "../../utils/general";
 
@@ -10,27 +11,24 @@ interface Props {
 }
 
 const NewsDetail: FC<Props> = ({ newsDetail: { categories, author, content, date_published, description, image, title } }) => (
-  <div className="col-span-4 pr-4 overflow-y-auto">
+  <div className="col-span-4 lg:pr-4 overflow-y-auto">
     {categories?.length > 0 && (
       <div className="w-full flex">
-        {categories.map((category,idx) => (
+        {categories.map((category, idx) => (
           <NewsTag tag={category as string} key={idx} />
         ))}
       </div>
     )}
-    <div className="w-full flex flex-col mt-4">
-      <h1 className="text-3xl font-semibold mt-4">{title}</h1>
-      <p className="text-xl mt-4">{description}</p>
-      <p className="text-lg mt-4">
+    <div className="w-full flex flex-col mt-2 lg:mt-4">
+      <h1 className="text-2xl lg:text-3xl font-semibold mt-4">{title}</h1>
+      <p className="text-lg lg:text-xl mt-4">{description}</p>
+      <p className="text-base lg:text-lg mt-4">
         Par <span className="font-bold">{author}</span>, le {formatDjangoDate(date_published)}
       </p>
-      <div
-        role="img"
-        aria-label="image"
-        className="w-full h-[34rem] mt-8 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${apiHost}${image.image})` }}
-      />
-      <div className="text-lg mt-8" dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div role="img" aria-label="image" className="w-full h-96 lg:h-[34rem] mt-6 lg:mt-8 relative">
+        <Image src={`${apiHost}${image.image}`} alt={image.alt || ""} fill className="-z-10 object-cover"  />
+      </div>
+      <div className="text-base lg:text-lg mt-6 lg:mt-8" dangerouslySetInnerHTML={{ __html: content }}></div>
     </div>
   </div>
 );

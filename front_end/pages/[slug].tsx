@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { IPage } from "../types";
+import Image from "next/image";
 import LayoutContext from "../context/Context";
 import Link from "next/link";
 import Motion from "../components/Layout/Motion";
@@ -49,9 +50,9 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
         <link rel="icon" href={favicon?.image} />
       </Head>
       <PageLayout title={title}>
-        <div className="h-full w-full grid grid-cols-4 gap-8">
+        <div className="h-full w-full flex flex-col lg:grid lg:grid-cols-4 gap-8 ">
           <div
-            className="col-span-3 overflow-y-auto page-content"
+            className="col-span-3 overflow-y-auto page-content mt-8 lg:mt-0"
             dangerouslySetInnerHTML={content ? { __html: content } : undefined}
           >
             {!content ? (
@@ -67,9 +68,17 @@ const CustomPage: FC<Props> = ({ pageDetail: { title, meta_description, meta_key
           </div>
           <div>
             <div
-              className="w-full h-[28rem] bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${apiHost}${image?.image})`, border: `0.5rem solid ${secondary_color}` }}
-            ></div>
+              className="w-full md:w-1/2 lg:w-full h-[28rem] relative md:mx-auto"
+              style={{ border: `0.5rem solid ${secondary_color}` }}
+            >
+              <Image
+                src={`${apiHost}${image?.image}`}
+                alt={image?.alt || ""}
+                fill
+                className="-z-10 object-cover"
+                
+              />
+            </div>
           </div>
         </div>
       </PageLayout>

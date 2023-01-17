@@ -14,7 +14,7 @@ const ActualitesPageLayout: FC<Props> = ({ newsByCategory, newsByDate, children 
   return (
     <NewsContext.Provider value={{ newsByCategory, newsByDate }}>
       <PageLayout title="Actualités">
-        <div className="h-full w-full grid grid-cols-5">
+        <div className="lg:h-full w-full flex flex-col mt-8 lg:mt-0 lg:grid grid-cols-5">
           {children}
           <NewsSidebar />
         </div>

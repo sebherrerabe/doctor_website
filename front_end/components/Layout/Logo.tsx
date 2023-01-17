@@ -9,11 +9,11 @@ interface Props {
 const getTextSize = (idx: number) => {
   switch (idx) {
     case 0:
-      return;
+      return "text-sm lg:text-base";
     case 1:
-      return "text-2xl";
+      return "text-lg lg:text-2xl";
     case 2:
-      return "text-3xl";
+      return "text-xl lg:text-3xl";
     default:
       return "";
   }
@@ -25,7 +25,7 @@ const Logo: FC<Props> = ({ name, brand_color }) => {
   return (
     <Link href="/">
       <div className="flex items-center w-fit">
-        <div className="h-24 w-24 mr-2 grid grid-rows-3">
+        <div className="h-16 w-16 lg:h-24 lg:w-24 mr-2 grid grid-rows-3">
           <div className="w-full grid grid-cols-3">
             <div />
             <div style={{ backgroundColor: brand_color }} />

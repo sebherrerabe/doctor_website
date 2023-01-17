@@ -8,7 +8,7 @@ const { parsed: myEnv } = require("dotenv").config({
 });
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack(config) {
     config.plugins.push(new webpack.EnvironmentPlugin(myEnv));
     return config;

@@ -1,8 +1,9 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, UIEventHandler, useEffect } from "react";
 
 import { IActualites } from "../../types";
 import NewsCard from "./NewsCard";
 import { getNewsList } from "../../utils/fetchData";
+import useScreenSize from "../../hooks/useScreenSize";
 
 interface Props {
   newsPagination: IActualites;
@@ -10,8 +11,16 @@ interface Props {
 }
 
 const NewsList: FC<Props> = ({ newsPagination, setNewsPagination }) => {
-  const handleScroll = async (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+  const screenSize = useScreenSize();
+  const handleScroll = async ({
+    scrollTop,
+    scrollHeight,
+    clientHeight,
+  }: {
+    scrollTop: number;
+    scrollHeight: number;
+    clientHeight: number;
+  }) => {
     if (scrollTop + clientHeight >= scrollHeight && newsPagination.next) {
       const newNews = await getNewsList({ page: newsPagination.page + 1 });
       setNewsPagination((prev) => ({
@@ -23,31 +32,37 @@ const NewsList: FC<Props> = ({ newsPagination, setNewsPagination }) => {
     }
   };
 
+  useEffect(() => {
+    const handleWindowScroll = () => handleScroll(document.documentElement);
+    if (screenSize < 1024) window.addEventListener("scroll", handleWindowScroll);
+    return () => (screenSize < 1024 ? window.removeEventListener("scroll", handleWindowScroll) : undefined);
+  }, [screenSize, newsPagination, setNewsPagination]);
+
   return (
     <div
-      className="col-span-4 pr-4 overflow-y-scroll grid auto-rows-[minmax(6rem,1fr)] grid-cols-3 gap-8"
-      onScroll={handleScroll}
+      className="col-span-4 lg:pr-4 overflow-y-scroll grid lg:auto-rows-[minmax(6rem,1fr)] grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8"
+      onScroll={screenSize >= 1024 ? (e) => handleScroll(e.currentTarget) : undefined}
     >
       {newsPagination.results.map((newsEl, idx) =>
         idx === 0 ? (
-          <div className="w-full row-span-4 col-span-3 flex overflow-hidden" key={newsEl.slug}>
+          <div className="aspect-square md:aspect-video lg:aspect-auto lg:row-span-4 lg:col-span-3 col-span-2 flex overflow-hidden" key={newsEl.slug}>
             <NewsCard
               news={newsEl}
-              className="h-full w-full bg-cover bg-center bg-no-repeat"
-              titleClassName="p-2 text-2xl font-bold w-fit"
-              dateClassName="p-2 text-base w-fit mt-2"
+              className="h-full w-full relative"
+              titleClassName="text-xl md:text-2xl font-bold w-fit"
+              dateClassName="p-2 text-sm md:text-base w-fit mt-2"
               titleMaxLength={120}
               descriptionMaxLength={500}
               infoContainerClassName="h-1/2 w-full p-4 flex flex-col justify-end"
             />
           </div>
         ) : (
-          <div className="row-span-2 flex overflow-hidden" key={newsEl.slug}>
+          <div className="aspect-square md:aspect-video lg:aspect-auto lg:row-span-2 flex overflow-hidden" key={newsEl.slug}>
             <NewsCard
               news={newsEl}
-              className="h-full w-full bg-cover bg-center bg-no-repeat"
-              titleClassName="p-2 text-base font-bold w-fit"
-              dateClassName="p-2 text-sm w-fit mt-2"
+              className="h-full w-full relative"
+              titleClassName="text-sm md:text-base font-bold w-fit"
+              dateClassName="p-2 text-xs md:text-sm w-fit mt-2"
             />
           </div>
         )

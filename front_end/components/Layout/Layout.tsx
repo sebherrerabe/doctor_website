@@ -17,11 +17,11 @@ const Layout: FC<Props> = ({ children }) => {
       style={{ backgroundImage: `url(${background_image?.image})`, color: text_color }}
     >
       <div
-        className="h-screen w-screen bg-white/80 flex"
+        className="lg:h-screen w-screen bg-white/80 flex flex-col lg:flex-row"
         style={{ backgroundColor: convertHexToRGBColor(primary_color, "0.97") }}
       >
-        <Navbar className="h-full p-8 flex flex-col overflow-y-auto text-xl font-semibold" />
-        <main className="h-full w-full p-8">{children}</main>
+        <Navbar />
+        <main className="lg:h-full w-full p-4 lg:p-8">{children}</main>
       </div>
     </div>
   );

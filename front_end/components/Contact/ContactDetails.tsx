@@ -1,6 +1,7 @@
-import { faMailBulk, faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FC } from "react";
+import { faMailBulk, faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
   contactName: string;
@@ -13,7 +14,7 @@ interface Props {
 const ContactDetails: FC<Props> = ({ address, contactName, email, embedded_map, phone }) => (
   <div className="h-full flex flex-col justify-center">
     <h2 className="text-2xl font-bold">{contactName}</h2>
-    <div className="w-full grid grid-cols-2 gap-8 py-8 mt-4">
+    <div className="w-full grid grid-cols-2 gap-8 py-6 lg:py-8 mt-4">
       <div className="font-semibold flex">
         <div className="w-6">
           <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
@@ -22,7 +23,7 @@ const ContactDetails: FC<Props> = ({ address, contactName, email, embedded_map, 
       </div>
       <span>{address}</span>
     </div>
-    <div className="w-full grid grid-cols-2 gap-8 py-8">
+    <div className="w-full grid grid-cols-2 gap-8 py-6 lg:py-8">
       <div className="font-semibold flex">
         <div className="w-6">
           <FontAwesomeIcon icon={faMailBulk} className="mr-2" />
@@ -31,7 +32,7 @@ const ContactDetails: FC<Props> = ({ address, contactName, email, embedded_map, 
       </div>
       <span>{email}</span>
     </div>
-    <div className="w-full grid grid-cols-2 gap-8 py-8">
+    <div className="w-full grid grid-cols-2 gap-8 py-6 lg:py-8">
       <div className="font-semibold flex">
         <div className="w-6">
           <FontAwesomeIcon icon={faPhone} className="mr-2" />
@@ -40,7 +41,7 @@ const ContactDetails: FC<Props> = ({ address, contactName, email, embedded_map, 
       </div>
       <span>{phone}</span>
     </div>
-    <div className="w-full h-[28rem]" dangerouslySetInnerHTML={{ __html: embedded_map }}></div>
+    <div className="w-full h-96 lg:h-[28rem] mt-4 lg:mt-0" dangerouslySetInnerHTML={{ __html: embedded_map }}></div>
   </div>
 );
 

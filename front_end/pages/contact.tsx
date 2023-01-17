@@ -33,7 +33,7 @@ const Contact: NextPage<Props> = ({ contactDetails: { name: contactName, address
         <link rel="icon" href={favicon?.image} />
       </Head>
       <PageLayout title="Contact">
-        <div className="h-full w-full grid grid-cols-2 gap-8">
+        <div className="h-full w-full flex flex-col lg:grid lg:grid-cols-2 gap-8 mt-8 lg:mt-0">
           <ContactDetails address={address} contactName={contactName} email={email} embedded_map={embedded_map} phone={phone} />
           <ContactForm />
         </div>

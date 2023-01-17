@@ -1,7 +1,8 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
-import LayoutContext from "../../context/Context";
+
 import Cookies from "js-cookie";
+import LayoutContext from "../../context/Context";
+import axios from "axios";
 
 const apiHost = process.env.API_HOST;
 
@@ -41,7 +42,7 @@ const ContactForm = () => {
     });
   };
   return (
-    <div className="w-full h-full flex flex-col justify-center">
+    <div className="w-full h-full flex flex-col justify-center mt-4 lg:mt-0">
       <p className="text-xl">
         Pour de plus amples renseignements, le formulaire de contact ci-dessous est à votre disposition ou vous pouvez nous
         appeler.
