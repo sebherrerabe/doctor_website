@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
             priority
           />
           <h1
-            className="text-3xl lg:text-5xl w-fit p-2 font-medium"
+            className="text-4xl lg:text-5xl w-fit p-2 font-medium"
             style={{ backgroundColor: brand_color, color: primary_color }}
           >
             {name}
@@ -61,6 +61,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
             {highlights.slice(0, 4).map((highlight, idx) => (
               <NewsCard
                 news={highlight}
+                titleClassName="text-xl lg:text-lg"
                 className={`aspect-video lg:aspect-auto overflow-hidden relative ${idx > 2 ? "lg:hidden xl:block" : ""}`}
                 imageSizes=""
                 key={highlight.slug}
