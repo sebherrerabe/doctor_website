@@ -14,6 +14,8 @@ from .serializers import (
 from rest_framework import generics
 from .pagination import StandardResultsSetPagination
 from datetime import datetime
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 class SiteSettingsView(APIView):
@@ -101,5 +103,15 @@ class ContactDetailsMessageView(APIView):
         email = request.data.get("email")
         phone = request.data.get("phone")
         message = request.data.get("message")
-        print(name, email, phone, message)
+        html_message = render_to_string(
+            "contact_email.html", {"name": name, "email": email, "phone": phone, "message": message}
+        )
+        send_mail(
+            "Nouveau message de contact depuis le site web",
+            message,
+            "from@example.com",
+            ["to@example.com"],
+            html_message=html_message,
+        )
+
         return Response({"message": "Message sent successfully."}, status=status.HTTP_200_OK)
