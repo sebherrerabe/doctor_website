@@ -1,38 +1,23 @@
-Here's a sample README file for your doctor_website repo:
+**README**
 
-Copy code
-# doctor_website
+Welcome to the `doctor_website` repository! This project is a medical website that provides information about a doctor and a blog section for news updates.
 
-A website for doctors to showcase their information and a blog for news.
+The website's design follows a sober and clean style, as specified by the client. You can view the design specifications [here](https://www.figma.com/file/xvKCFZTaWZuIqrwFS5ewmn/Medical-website?node-id=74%3A202&t=440wUFqrhqHGci9r-1).
 
-## Installation
+The website is built using the following stack:
 
-1. Clone the repository
-```bash
-git clone https://github.com/your-username/doctor_website.git
-Install the dependencies
-Copy code
-pip install -r requirements.txt
-Run the development server
-Copy code
-python manage.py runserver
-Technology stack
-Python
-Django
-Next.js
-TypeScript
-Tailwind CSS
-Font Awesome
-Motion
-Django-Nextjs library (https://github.com/QueraTeam/django-nextjs)
-Design
-The website follows a sober and clean design, as per the client's specifications. You can view the design on Figma at this link: https://www.figma.com/file/xvKCFZTaWZuIqrwFS5ewmn/Medical-website?node-id=74%3A202&t=440wUFqrhqHGci9r-1
+- Backend:
+    - Django (Python)
+    - REST
+    - Django-NextJS
+    - SQLite
+- Frontend:
+    - NextJS 13
+    - TypeScript
+    - Tailwind CSS
+    - FontAwesome
+    - Motion
 
-Images
-The images used in the website is located in the /static/images folder.
+The source code for the Django-NextJS library can be found [here](https://github.com/QueraTeam/django-nextjs).
 
-Suggestions
-If you have any suggestions or improvements, please feel free to create an issue or a pull request.
-
-Copy code
-Please let me know if you want me to include more details.
+Please let me know if you have any suggestions or feedback for this project.
