@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from pathlib import Path
 from PIL import Image as PILImage
 import os
+from .utils import is_file_svg
 
 
 class SiteSettings(models.Model):
@@ -29,7 +30,7 @@ class Page(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, blank=True)
     content = HTMLField(blank=True, null=True)
-    icon = models.CharField(max_length=255, blank=True, null=True)
+    icon = models.ForeignKey("Icon", on_delete=models.SET_NULL, blank=True, null=True, related_name="page_icon")
     image = models.ForeignKey("Image", on_delete=models.SET_NULL, blank=True, null=True, related_name="page_image")
     meta_description = models.TextField(blank=True, null=True)
     meta_keywords = models.TextField(blank=True, null=True)
@@ -91,7 +92,8 @@ class Image(models.Model):
         self.convert_to_webp()
 
     def convert_to_webp(self):
-        if self.image.name.endswith(".ico"):
+        exceptions = [".ico", ".webp"]
+        if Path(self.image.path).suffix in exceptions:
             return
         file_path = Path(self.image.path).resolve()
         image = PILImage.open(file_path)
@@ -100,3 +102,12 @@ class Image(models.Model):
         self.image = str(webp_file_path)
         os.remove(file_path)
         super().save()
+
+
+class Icon(models.Model):
+    name = models.CharField(max_length=255)
+    icon = models.FileField(upload_to="icons/", validators=[is_file_svg])
+    alt = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

@@ -1,10 +1,33 @@
 from rest_framework import serializers
-from .models import SiteSettings, Page, News, Category, ContactDetails, Image
+
+from rest_framework.fields import FileField
+from .models import SiteSettings, Page, News, Category, ContactDetails, Image, Icon
+
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = "__all__"
+
+
+class SVGField(FileField):
+    def to_representation(self, value):
+        file_format = "svg"
+        file_name = value.name
+        if file_name.endswith(file_format):
+            with value.open() as f:
+                return f.read()
+        raise ValueError("File format must be 'svg'")
+
+
+class IconSerializer(serializers.ModelSerializer):
+    icon = SVGField()
+
+    class Meta:
+        model = Icon
+        fields = "__all__"
+
+
 class SiteSettingsSerializer(serializers.ModelSerializer):
     favicon = ImageSerializer(read_only=True)
     logo = ImageSerializer(read_only=True)
@@ -17,6 +40,8 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
 
 
 class PageListSerializer(serializers.ModelSerializer):
+    icon = IconSerializer(read_only=True)
+
     class Meta:
         model = Page
         fields = ("title", "slug", "icon")
@@ -24,6 +49,7 @@ class PageListSerializer(serializers.ModelSerializer):
 
 class PageDetailSerializer(serializers.ModelSerializer):
     image = ImageSerializer(read_only=True)
+
     class Meta:
         model = Page
         fields = "__all__"
@@ -43,6 +69,7 @@ class NewsDetailSerializer(serializers.ModelSerializer):
 
 class NewsListSerializer(serializers.ModelSerializer):
     image = ImageSerializer(read_only=True)
+
     class Meta:
         model = News
         fields = (
@@ -69,6 +96,3 @@ class ContactDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactDetails
         fields = "__all__"
-
-
-

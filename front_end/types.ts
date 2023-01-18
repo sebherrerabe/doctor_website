@@ -17,7 +17,7 @@ export interface IPage {
   title: string;
   slug: string;
   content: string;
-  icon: string;
+  icon: IIcon | null;
   image: IImage | null;
   meta_description: string;
   meta_keywords: string;
@@ -84,5 +84,11 @@ export interface IContactDetails {
 export interface IImage {
   name: string;
   image: string;
+  alt: string;
+}
+
+export interface IIcon {
+  name: string;
+  icon: string;
   alt: string;
 }

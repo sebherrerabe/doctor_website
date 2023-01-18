@@ -1,13 +1,11 @@
-import * as icons from "@fortawesome/free-solid-svg-icons";
-
 import { Dispatch, FC, SetStateAction, useContext, useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IPage } from "../../types";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import LayoutContext from "../../context/Context";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+const apiHost = process.env.API_HOST;
 
 const isPageActive = (pathname: string, page: IPage, query?: string) => {
   if (page.slug === "home" && pathname === "/") return true;
@@ -50,8 +48,8 @@ const PageLink: FC<Props> = ({ page, setIsNavbarOpen }) => {
         className="flex items-center relative"
         onClick={() => setIsNavbarOpen(false)}
       >
-        <FontAwesomeIcon icon={(icons as unknown as Record<string, IconProp>)[page.icon]} className="mr-3 text-sm" />
-        <span className="inline-block leading-[0.768em]">{page.title}</span>
+        <div className="h-5 w-5 svg-con" dangerouslySetInnerHTML={{ __html: page.icon?.icon || "" }} />
+        <span className="inline-block leading-[0.768em] ml-2">{page.title}</span>
       </Link>
     </li>
   );
