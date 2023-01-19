@@ -35,7 +35,7 @@ const Home: NextPage<Props> = ({ highlights }) => {
         <link rel="icon" href={favicon?.image} />
       </Head>
       <div className="flex flex-col lg:grid lg:grid-rows-6 lg:h-full w-full gap-8">
-        <div className="h-[60vh] w-full p-4 lg:p-8 flex flex-col justify-end bg-cover bg-center row-span-4 relative">
+        <div className="h-[60vh] w-full p-4 lg:p-8 flex flex-col justify-end row-span-4 relative">
           <Image
             src={`${apiHost}${main_image?.image}`}
             alt={main_image?.alt || ""}
