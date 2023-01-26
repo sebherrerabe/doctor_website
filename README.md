@@ -1,27 +1,27 @@
-# NGINX Example
+**README**
 
-This example is deploys a site using [NGINX](https://www.nginx.com/)
+Welcome to the `doctor_website` repository! This project is a medical website that provides information about a doctor and a blog section for news updates.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/o3MbZe)
+The website's design follows a sober and clean style, as specified by the client. You can view the design specifications [here](https://www.figma.com/file/xvKCFZTaWZuIqrwFS5ewmn/Medical-website?node-id=74%3A202&t=440wUFqrhqHGci9r-1).
 
+The website is built using the following stack:
 
-## ✨ Features
+NGINX for the reverse proxy
 
-- NGINX
-- Static Site
+- Backend:
+    - Gunicorn
+    - Django (Python)
+    - REST
+    - Django-NextJS
+    - SQLite
+- Frontend:
+    - NextJS 13
+    - TypeScript
+    - Tailwind CSS
+    - FontAwesome
+    - Motion
 
-## 💁‍♀️ How to use
+The source code for the Django-NextJS library can be found [here](https://github.com/QueraTeam/django-nextjs).
 
-- Open the `site/index.html` in the browser
+Please let me know if you have any suggestions or feedback for this project.
 
-## 📝 Notes
-
-By default the `site/` directory gets deployed as a static site. This can be modified by changing the `Dockerfile`.
-
-The site is deployed using the default NGINX configuration. This can be overridden with a custom conf file by adding
-
-```
-COPY nginx.conf /etc/nginx/nginx.conf
-```
-
-to the end of the Dockerfile. For more information, [read the docs](https://hub.docker.com/_/nginx).
